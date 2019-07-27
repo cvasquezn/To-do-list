@@ -7,7 +7,6 @@ const _ = require("lodash");//utility to work easly with string and other stuff
 const favicon = require('serve-favicon');
 
 const app = express();
-app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 //mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser:true }); // to work locally
 
 const passMongoDB=process.env.passMongoDB; //to deploy on heroku
@@ -53,6 +52,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());//to work with data json send on a request: to update
 app.set('view engine', 'ejs');
 app.use(express.static("public"));// we have to say to the server what file to send to the client
+//app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 app.get("/", function(req,res){
 
