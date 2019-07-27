@@ -1,0 +1,33 @@
+<%-include("header") -%>
+
+		<div class="box" id="heading">
+			<h1> <%= listTitle %> </h1>
+		</div>
+
+		<div class="box">
+			
+			<!-- new version -->
+			<!-- -->
+			<% items.forEach(function(item){ %>
+		
+						<div class="item">
+							<input type="checkbox" 
+									name="checkbok" 
+									value="<%=item._id%>,<%= listTitle %>" <%=item.state%> onChange="terms_change(this)">
+							<p> <%= item.name %> </p>
+							
+								<form class="btnTrash" action="/delete" method="post">
+									<button type="submit" name="btnTrash" value="<%=item._id%>"><i class="fa fa-trash"></i></button>
+								</form>
+						</div>
+					
+
+			<%  }) %>
+
+			<form class="item" method="POST" action="/" >
+				<input type="text" name="newItem" placeholder="Add a new item" autocomplete="off"> <!-- the value of this input is passed implicitly. not necesary to use value attribute -->
+				<button type="submit" name="buttonAddItem" value="<%= listTitle %>">+</button>
+			</form>
+		</div>
+		
+<%-include("footer") -%>
