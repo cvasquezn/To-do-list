@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");//utility to work easly with string and other stuff
 
 const app = express();
+app.use(ignoreFavicon);
 //mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser:true }); // to work locally
 
 const passMongoDB=process.env.passMongoDB; //to deploy on heroku
@@ -164,7 +165,7 @@ app.get("/:customListName", function(req,res){
 			if(!foundList){ //si no existe
 				//create a new list
 				const list = new List({
-					name:customListName,
+					name: customListName,
 					items: defaultItems
 				});
 
@@ -186,6 +187,15 @@ app.get("/:customListName", function(req,res){
 // app.listen(3000, function(){ //use to work locally
 // 	console.log("server is running on port 3000");
 // });
+
+
+function ignoreFavicon(req, res, next) {
+  if (req.originalUrl === '/favicon.ico') {
+    res.status(204).json({nope: true});
+  } else {
+    next();
+  }
+}
 
 let port = process.env.PORT;
 if(port==null || port==""){
