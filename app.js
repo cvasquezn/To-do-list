@@ -4,9 +4,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");//utility to work easly with string and other stuff
+const favicon = require('serve-favicon');
 
 const app = express();
-app.use(ignoreFavicon);
+app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 //mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser:true }); // to work locally
 
 const passMongoDB=process.env.passMongoDB; //to deploy on heroku
@@ -187,15 +188,6 @@ app.get("/:customListName", function(req,res){
 // app.listen(3000, function(){ //use to work locally
 // 	console.log("server is running on port 3000");
 // });
-
-
-function ignoreFavicon(req, res, next) {
-  if (req.originalUrl === '/favicon.ico') {
-    res.status(204).json({nope: true});
-  } else {
-    next();
-  }
-}
 
 let port = process.env.PORT;
 if(port==null || port==""){
