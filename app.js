@@ -176,7 +176,7 @@ app.get("/:customListName", function(req,res){
 				}); //add a new document in the collection List
 			} else {
 			//show an existing list
-			res.render("List", {listTitle: foundList.name, items: foundList.items});
+			res.render("list", {listTitle: foundList.name, items: foundList.items});
 			}
 		} 
 	}); //end findOne
